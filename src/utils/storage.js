@@ -1,35 +1,39 @@
-const LS_KEY_FORM = "qrproject_form";
-const LS_KEY_HISTORY = "qrproject_history";
+const LS_FORM = 'qrproject_form_v2'
+const LS_HISTORY = 'qrproject_history_v2'
 
-export const loadForm = () => {
-  try {
-    return (
-      JSON.parse(localStorage.getItem(LS_KEY_FORM)) || {
-        title: "",
-        link: "",
-        date: "",
-        place: "",
-        desc: "",
-      }
-    );
-  } catch {
-    return { title: "", link: "", date: "", place: "", desc: "" };
-  }
-};
 
-export const saveForm = (form) => {
-  localStorage.setItem(LS_KEY_FORM, JSON.stringify(form));
-};
+const DEF = {
+title: '', link: '', date: '', time: '', place: '', desc: '',
+template: 'seminar',
+fontFamily: 'Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial',
+palette: 'brand',
+accent: '#2563eb',
+bgOverlay: 0.25,
+bgBlur: 0,
+exportSize: 'a4',
+}
 
-export const pushHistory = (form) => {
-  let list = [];
-  try {
-    list = JSON.parse(localStorage.getItem(LS_KEY_HISTORY)) || [];
-  } catch {
-    // intentionally ignore JSON parse errors
-  }
-  list.unshift({ ...form, ts: Date.now() });
-  if (list.length > 6) list = list.slice(0, 6);
-  localStorage.setItem(LS_KEY_HISTORY, JSON.stringify(list));
-  return list;
-};
+
+export function loadForm(){
+try { return { ...DEF, ...(JSON.parse(localStorage.getItem(LS_FORM)) || {}) } } catch { return { ...DEF } }
+}
+
+
+export function saveForm(form){
+localStorage.setItem(LS_FORM, JSON.stringify(form))
+}
+
+
+export function pushHistory(form){
+let list = []
+try { list = JSON.parse(localStorage.getItem(LS_HISTORY)) || [] } catch {}
+list.unshift({ ...form, ts: Date.now() })
+if (list.length > 12) list = list.slice(0, 12)
+localStorage.setItem(LS_HISTORY, JSON.stringify(list))
+return list
+}
+
+
+export function loadHistory(){
+try { return JSON.parse(localStorage.getItem(LS_HISTORY)) || [] } catch { return [] }
+}
