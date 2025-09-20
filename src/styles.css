@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0b0c10;
+  color: #e8ebf0;
+}
+header {
+  padding: 12px;
+  border-bottom: 1px solid #222;
+}
+.app-container {
+  padding: 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 16px;
+}
+.card {
+  background: #111318;
+  padding: 16px;
+  border-radius: 12px;
+}
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.history-item {
+  padding: 8px;
+  background: #222;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.history-item:hover {
+  background: #333;
+}
+.muted {
+  font-size: 0.8rem;
+  color: #9aa3af;
+}
